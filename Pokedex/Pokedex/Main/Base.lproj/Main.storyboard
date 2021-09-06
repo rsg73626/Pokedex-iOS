@@ -31,25 +31,7 @@
                             <outlet property="delegate" destination="rdf-vO-Kba" id="dGS-8H-lyB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Pokedex" id="R3y-2Z-oaF">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Filter" id="0qU-xy-cLu">
-                                <connections>
-                                    <action selector="didSelectFilter:" destination="rdf-vO-Kba" id="f6w-TZ-pHs"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem id="cAv-Ee-7J2">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="HYF-OL-rg2">
-                                    <rect key="frame" x="256" y="7" width="92" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Sort"/>
-                                    <connections>
-                                        <action selector="didSelectSort:" destination="rdf-vO-Kba" eventType="touchUpInside" id="H4Y-0J-u4w"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Pokedex" id="R3y-2Z-oaF"/>
                     <connections>
                         <segue destination="Tcl-p9-v3b" kind="showDetail" identifier="pokeStats" id="ayq-uq-59V"/>
                     </connections>

@@ -7,14 +7,10 @@
 
 import UIKit
 
-class PokemonsView: UITableViewController, UISearchBarDelegate, PokemonsServiceDelegate {
+class PokemonsView: UITableViewController, PokemonsServiceDelegate {
     
     // MARK: - Properties
     
-    let tipos = ["normal", "fire", "water", "grass", "bug", "poison", "electric", "ground",
-                 "fighting", "psychic", "rock", "flying", "ghost", "ice", "dragon", "fairy"]
-    
-    var pokemonsOriginal = [Pokemon]()
     var pokemons = [Pokemon]()
     var selectedPokemon: Pokemon?
     
@@ -54,10 +50,6 @@ class PokemonsView: UITableViewController, UISearchBarDelegate, PokemonsServiceD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let searchBar = UISearchBar()
-        searchBar.delegate = self
-        navigationItem.titleView = searchBar
-        
         service = RemotePokemonsService()
         service.delegate = self
         
@@ -65,91 +57,6 @@ class PokemonsView: UITableViewController, UISearchBarDelegate, PokemonsServiceD
         service.getPokemons()
     }
     
-    // MARK: - Actions
-    
-    @IBAction func didSelectFilter(_ sender: Any) {
-        let alert = UIAlertController(title: "Filter",
-                                      message: "Choose your pokemon's type",
-                                      preferredStyle: .actionSheet)
-        
-        let todos = UIAlertAction(title: "all",
-                                  style: .default,
-                                  handler: { alert in
-                                     self.pokemons=self.pokemonsOriginal
-                                     self.tableView.reloadData()
-                                  })
-        alert.addAction(todos)
-        
-        tipos.forEach{tipo in
-            let novoTipo = UIAlertAction(title: tipo,
-                                     style: .default,
-                                     handler: { alert in
-                                        self.pokemons=self.pokemonsOriginal.filter({ pokemon in pokemon.type.contains(tipo)
-                                        })
-                                        self.tableView.reloadData()
-                                     })
-            alert.addAction(novoTipo)
-        }
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func didSelectSort(_ sender: Any) {
-        let alert = UIAlertController(title: "Sort",
-                                      message: "",
-                                      preferredStyle: .actionSheet)
-        
-        let aZ = UIAlertAction(title: "a-z",
-                                 style: .default,
-                                 handler: { alert in
-                                    self.pokemons=self.pokemons.sorted(by: {$0.name < $1.name})
-                                    self.tableView.reloadData()
-                                 })
-        alert.addAction(aZ)
-        
-        let zA = UIAlertAction(title: "z-a",
-                                 style: .default,
-                                 handler: { alert in
-                                    self.pokemons=self.pokemons.sorted(by: {$0.name > $1.name})
-                                    self.tableView.reloadData()
-                                 })
-        alert.addAction(zA)
-        
-        let idAsc = UIAlertAction(title: "id (1-151)",
-                                 style: .default,
-                                 handler: { alert in
-                                    self.pokemons=self.pokemons.sorted(by: {$0.id < $1.id})
-                                    self.tableView.reloadData()
-                                 })
-        alert.addAction(idAsc)
-        
-        let idDesc = UIAlertAction(title: "id (151-1)",
-                                 style: .default,
-                                 handler: { alert in
-                                    self.pokemons=self.pokemons.sorted(by: {$0.id > $1.id})
-                                    self.tableView.reloadData()
-                                 })
-        alert.addAction(idDesc)
-        
-        present(alert, animated: true, completion: nil)
-        
-    }
-    
-    // MARK: - PokemonsServiceDelegate functions
-    
-    func pokemonsService(didGetPokemons pokemons: [Pokemon]) {
-        DispatchQueue.main.async {
-            self.loadingView.isHidden = true
-            self.pokemons = pokemons
-            self.pokemonsOriginal = pokemons
-            if pokemons.isEmpty {
-                self.showErrorMessage()
-            } else {
-                self.tableView.reloadData()
-            }
-        }
-    }
-
     // MARK: - Table view data source and delegate
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -190,17 +97,20 @@ class PokemonsView: UITableViewController, UISearchBarDelegate, PokemonsServiceD
         statsScreen.pokemon = selected
     }
     
-    // MARK: - UISearchBarDelegate functions
+    // MARK: - PokemonsServiceDelegate functions
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            pokemons = pokemonsOriginal
-        }else{
-            pokemons = pokemonsOriginal.filter {pokemon in pokemon.name.uppercased().contains(searchText.uppercased())}
+    func pokemonsService(didGetPokemons pokemons: [Pokemon]) {
+        DispatchQueue.main.async {
+            self.loadingView.isHidden = true
+            self.pokemons = pokemons
+            if pokemons.isEmpty {
+                self.showErrorMessage()
+            } else {
+                self.tableView.reloadData()
+            }
         }
-            
-        tableView.reloadData()
     }
+
     
     // MARK: - Aux functions
     
