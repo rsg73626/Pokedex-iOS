@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PokemonsView: UITableViewController, UISearchBarDelegate {
+class PokemonsView: UITableViewController, UISearchBarDelegate, PokemonsServiceDelegate {
     
     // MARK: - Properties
     
@@ -17,6 +17,8 @@ class PokemonsView: UITableViewController, UISearchBarDelegate {
     var pokemonsOriginal = [Pokemon]()
     var pokemons = [Pokemon]()
     var selectedPokemon: Pokemon?
+    
+    var service: PokemonsService!
     
     // MARK: - Helper variables
     
@@ -56,7 +58,11 @@ class PokemonsView: UITableViewController, UISearchBarDelegate {
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         
-        getPokemons()
+        service = RemotePokemonsService()
+        service.delegate = self
+        
+        loadingView.isHidden = false
+        service.getPokemons()
     }
     
     // MARK: - Actions
@@ -128,6 +134,21 @@ class PokemonsView: UITableViewController, UISearchBarDelegate {
         present(alert, animated: true, completion: nil)
         
     }
+    
+    // MARK: - PokemonsServiceDelegate functions
+    
+    func pokemonsService(didGetPokemons pokemons: [Pokemon]) {
+        DispatchQueue.main.async {
+            self.loadingView.isHidden = true
+            self.pokemons = pokemons
+            self.pokemonsOriginal = pokemons
+            if pokemons.isEmpty {
+                self.showErrorMessage()
+            } else {
+                self.tableView.reloadData()
+            }
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -182,29 +203,6 @@ class PokemonsView: UITableViewController, UISearchBarDelegate {
     }
     
     // MARK: - Aux functions
-    
-    private func getPokemons(urlString: String = "https://ifpb.github.io/intin-topicos/desafios/pokedex/code/data/pokedex.json") {
-        guard let url = URL(string: urlString) else {
-            return
-        }
-        
-        loadingView.isHidden = false
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            DispatchQueue.main.async { self.loadingView.isHidden = true }
-            
-            guard let data = data,
-                  let pokemons = try? JSONDecoder().decode([Pokemon].self, from: data),
-                  !pokemons.isEmpty else {
-                DispatchQueue.main.async { self.showErrorMessage() }
-                return
-            }
-            self.pokemonsOriginal = pokemons
-            self.pokemons = pokemons
-            
-            DispatchQueue.main.async { self.tableView.reloadData() }
-        }.resume()
-    }
     
     private func showErrorMessage() {
         let alert = UIAlertController(title: "Error", message: "Error while trying to get pokemons. Please, try again later", preferredStyle: .alert)
