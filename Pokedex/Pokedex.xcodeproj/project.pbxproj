@@ -60,17 +60,41 @@
 		C3253E322625F8C600837EEA /* Pokedex */ = {
 			isa = PBXGroup;
 			children = (
+				DE4B1E1526E6BED200DF8E2D /* Resources */,
+				DE4B1E1426E6BECC00DF8E2D /* Application */,
+				DE4B1E1626E6BEF900DF8E2D /* Main */,
+			);
+			path = Pokedex;
+			sourceTree = "<group>";
+		};
+		DE4B1E1426E6BECC00DF8E2D /* Application */ = {
+			isa = PBXGroup;
+			children = (
 				C3253E332625F8C600837EEA /* AppDelegate.swift */,
 				C3253E352625F8C600837EEA /* SceneDelegate.swift */,
-				C3253E372625F8C600837EEA /* ViewController.swift */,
-				C3253E392625F8C600837EEA /* Main.storyboard */,
+				C3253E412625F8C700837EEA /* Info.plist */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		DE4B1E1526E6BED200DF8E2D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				C3253E3C2625F8C700837EEA /* Assets.xcassets */,
 				C3253E3E2625F8C700837EEA /* LaunchScreen.storyboard */,
-				C3253E412625F8C700837EEA /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DE4B1E1626E6BEF900DF8E2D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C3253E372625F8C600837EEA /* ViewController.swift */,
+				C3253E392625F8C600837EEA /* Main.storyboard */,
 				C3BA6C60262F2D1300ED1D3E /* TableViewController.swift */,
 				C3BA6C6326373ED900ED1D3E /* StatsViewController.swift */,
 			);
-			path = Pokedex;
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,7 +320,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NVF5FB96JS;
-				INFOPLIST_FILE = Pokedex/Info.plist;
+				INFOPLIST_FILE = Pokedex/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,7 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NVF5FB96JS;
-				INFOPLIST_FILE = Pokedex/Info.plist;
+				INFOPLIST_FILE = Pokedex/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
