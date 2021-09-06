@@ -11,6 +11,7 @@ class PokemonsView: UITableViewController, PokemonsServiceDelegate {
     
     // MARK: - Properties
     
+    var favoritePokemonIds = [Int]()
     var pokemons = [Pokemon]()
     var selectedPokemon: Pokemon?
     
@@ -69,10 +70,13 @@ class PokemonsView: UITableViewController, PokemonsServiceDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokeCell", for: indexPath)
+        let pokemon = pokemons[indexPath.row]
       
-        cell.textLabel?.text = pokemons[indexPath.row].name
-        cell.detailTextLabel?.text = "testes"
-        cell.imageView?.image = UIImage(named: pokemons[indexPath.row].name)
+        var content = cell.defaultContentConfiguration()
+        content.image = UIImage(named: pokemon.name)
+        content.text = pokemon.name
+        content.secondaryText = favoritePokemonIds.contains(pokemon.id) ? "❤️" : "👎"
+        cell.contentConfiguration = content
         
         return cell
     }
