@@ -95,9 +95,10 @@
 		DE4B1E1626E6BEF900DF8E2D /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C3253E392625F8C600837EEA /* Main.storyboard */,
 				DE4B1E1726E6BFD000DF8E2D /* Models */,
 				DE4B1E1E26E6CF5000DF8E2D /* Pokemons */,
-				C3BA6C6326373ED900ED1D3E /* StatsViewController.swift */,
+				DE4B1E2326E6D2F500DF8E2D /* Stats */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -132,10 +133,17 @@
 		DE4B1E2226E6D16700DF8E2D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C3253E392625F8C600837EEA /* Main.storyboard */,
 				C3BA6C60262F2D1300ED1D3E /* PokemonsView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DE4B1E2326E6D2F500DF8E2D /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				C3BA6C6326373ED900ED1D3E /* StatsViewController.swift */,
+			);
+			path = Stats;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

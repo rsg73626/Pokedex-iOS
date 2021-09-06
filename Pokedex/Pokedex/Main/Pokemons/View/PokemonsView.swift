@@ -150,7 +150,7 @@ class PokemonsView: UITableViewController, UISearchBarDelegate, PokemonsServiceD
         }
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source and delegate
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         pokemons.isEmpty ? .zero : 1
@@ -173,24 +173,24 @@ class PokemonsView: UITableViewController, UISearchBarDelegate, PokemonsServiceD
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
-
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedPokemon = pokemons[indexPath.row]
         performSegue(withIdentifier: "pokeStats", sender: nil)
     }
     
+    // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let statsScreen = segue.destination as? StatsViewController,
+        guard let statsScreen = segue.destination as? StatsView,
               let selected = selectedPokemon else {
             return
         }
         
         statsScreen.pokemon = selected
     }
+    
+    // MARK: - UISearchBarDelegate functions
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {

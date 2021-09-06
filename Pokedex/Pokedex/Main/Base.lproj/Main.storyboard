@@ -58,10 +58,10 @@
             </objects>
             <point key="canvasLocation" x="495.6521739130435" y="63.616071428571423"/>
         </scene>
-        <!--Stats View Controller-->
+        <!--Stats View-->
         <scene sceneID="hlS-Vl-S3r">
             <objects>
-                <viewController id="Tcl-p9-v3b" customClass="StatsViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Tcl-p9-v3b" customClass="StatsView" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zL5-Oe-8Yf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

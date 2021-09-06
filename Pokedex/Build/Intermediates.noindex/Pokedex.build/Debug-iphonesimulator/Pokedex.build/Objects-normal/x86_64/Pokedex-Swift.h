@@ -265,8 +265,8 @@ SWIFT_CLASS("_TtC7Pokedex13SceneDelegate")
 @class UIImageView;
 @class UILabel;
 
-SWIFT_CLASS("_TtC7Pokedex19StatsViewController")
-@interface StatsViewController : UIViewController
+SWIFT_CLASS("_TtC7Pokedex9StatsView")
+@interface StatsView : UIViewController
 @property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified image;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified type;
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified total;

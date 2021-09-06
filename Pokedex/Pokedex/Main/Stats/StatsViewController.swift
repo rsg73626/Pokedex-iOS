@@ -1,13 +1,13 @@
 //
-//  StatsViewController.swift
+//  StatsView.swift
 //  Pokedex
 //
-//  Created by Corebiz on 26/04/21.
+//  Created by StatsView on 26/04/21.
 //
 
 import UIKit
 
-class StatsViewController: UIViewController {
+class StatsView: UIViewController {
     
     // MARK: - Outlets
     
