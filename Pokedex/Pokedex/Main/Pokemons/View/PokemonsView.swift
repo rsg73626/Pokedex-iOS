@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PokemonsView: UITableViewController, PokemonsServiceDelegate {
+class PokemonsView: UITableViewController, PokemonsServiceDelegate, StatsViewDelegate {
     
     // MARK: - Properties
     
@@ -72,10 +72,11 @@ class PokemonsView: UITableViewController, PokemonsServiceDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokeCell", for: indexPath)
         let pokemon = pokemons[indexPath.row]
       
+        cell.selectionStyle = .none
         var content = cell.defaultContentConfiguration()
         content.image = UIImage(named: pokemon.name)
         content.text = pokemon.name
-        content.secondaryText = favoritePokemonIds.contains(pokemon.id) ? "❤️" : "👎"
+        content.secondaryText = "Favorite: " + (favoritePokemonIds.contains(pokemon.id) ? "❤️" : "👎")
         cell.contentConfiguration = content
         
         return cell
@@ -99,6 +100,8 @@ class PokemonsView: UITableViewController, PokemonsServiceDelegate {
         }
         
         statsScreen.pokemon = selected
+        statsScreen.isFavorite = favoritePokemonIds.contains(selected.id)
+        statsScreen.delegate = self
     }
     
     // MARK: - PokemonsServiceDelegate functions
@@ -114,7 +117,17 @@ class PokemonsView: UITableViewController, PokemonsServiceDelegate {
             }
         }
     }
-
+    
+    // MARK: - StatsViewDelegate functions
+    
+    func statsView(didUpdatePokemon pokemon: Pokemon, favorite: Bool) {
+        if favorite {
+            favoritePokemonIds.append(pokemon.id)
+        } else {
+            favoritePokemonIds = favoritePokemonIds.filter { $0 != pokemon.id }
+        }
+        tableView.reloadData()
+    }
     
     // MARK: - Aux functions
     
