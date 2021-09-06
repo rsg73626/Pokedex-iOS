@@ -1,9 +1,10 @@
 version: "Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)"
 options: "400ee0de7b700dd6087f67d04f714382"
-build_time: [1630963610, 118764000]
+build_time: [1630963871, 464667000]
 inputs:
-  "/Users/fulllab/Documents/Pokedex-iOS/Pokedex/Pokedex/Main/ViewController.swift": [1630957500, 682986052]
+  "/Users/fulllab/Documents/Pokedex-iOS/Pokedex/Pokedex/Main/Models/Pokemon.swift": [1630963869, 898210881]
+  "/Users/fulllab/Documents/Pokedex-iOS/Pokedex/Pokedex/Main/Models/Stats.swift": [1630963864, 346366919]
   "/Users/fulllab/Documents/Pokedex-iOS/Pokedex/Pokedex/Application/AppDelegate.swift": [1630957500, 570922109]
   "/Users/fulllab/Documents/Pokedex-iOS/Pokedex/Pokedex/Application/SceneDelegate.swift": [1630957500, 682275224]
   "/Users/fulllab/Documents/Pokedex-iOS/Pokedex/Pokedex/Main/StatsViewController.swift": [1630957500, 682443580]
-  "/Users/fulllab/Documents/Pokedex-iOS/Pokedex/Pokedex/Main/TableViewController.swift": [1630957500, 682641680]
+  "/Users/fulllab/Documents/Pokedex-iOS/Pokedex/Pokedex/Main/TableViewController.swift": [1630963841, 796684469]

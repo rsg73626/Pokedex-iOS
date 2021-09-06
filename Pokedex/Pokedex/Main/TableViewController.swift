@@ -8,7 +8,48 @@
 import UIKit
 
 class TableViewController: UITableViewController, UISearchBarDelegate {
-    let tipos : [String] = ["normal", "fire", "water", "grass" ,"bug", "poison", "electric", "ground", "fighting", "psychic", "rock", "flying", "ghost", "ice", "dragon", "fairy"]
+    
+    // MARK: - Properties
+    
+    let tipos : [String] = ["normal",
+                            "fire", 
+                            "water", 
+                            "grass",
+                            "bug",
+                            "poison", 
+                            "electric", 
+                            "ground", 
+                            "fighting", 
+                            "psychic", 
+                            "rock", 
+                            "flying", 
+                            "ghost", 
+                            "ice", 
+                            "dragon", 
+                            "fairy"]
+    
+    var pokemonsOriginal: [Pokemon] = []
+    var pokemons: [Pokemon] = []
+    var selectedPokemon: Pokemon?
+    
+    // MARK: - Life cycle functions
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let searchBar = UISearchBar()
+        
+        searchBar.delegate = self
+        
+        navigationItem.titleView = searchBar
+        
+        let url = "https://ifpb.github.io/intin-topicos/desafios/pokedex/code/data/pokedex.json"
+        getData(from: url)
+ 
+    }
+    
+    // MARK: - Actions
+    
     @IBAction func didSelectFilter(_ sender: Any) {
         let alert = UIAlertController(title: "Filter",
                                       message: "Choose your pokemon's type",
@@ -76,56 +117,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         present(alert, animated: true, completion: nil)
         
     }
-    
-    
-    var pokemonsOriginal: [Pokemon] = []
-    var pokemons: [Pokemon] = []
-    var selectedPokemon: Pokemon?
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let searchBar = UISearchBar()
-        
-        searchBar.delegate = self
-        
-        navigationItem.titleView = searchBar
-        
-        let url = "https://ifpb.github.io/intin-topicos/desafios/pokedex/code/data/pokedex.json"
-        getData(from: url)
- 
-    }
-    
-    private func getData(from url: String){
-        
-        let task = URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: {data, response, error in
-            
-            guard let data = data, error == nil else{
-                print("failedd to get data")
-                return
-            }
-            
-            var json: [Pokemon]?
-            do{
-                json = try JSONDecoder().decode([Pokemon].self, from: data)
-            }catch{
-                print("Failedd \(error.localizedDescription)")
-            }
-            
-            guard let dados = json else{
-                return
-            }
-            
-            self.pokemonsOriginal=dados
-            self.pokemons=dados
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-            
-        })
-        
-        task.resume()
-        
-    }
 
     // MARK: - Table view data source
 
@@ -152,41 +143,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     
     // MARK: - Navigation
@@ -222,34 +178,38 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         
     }
     
-}
-
-
-struct Pokemon: Codable {
-    let id: Int
-    let name: String
-    let price: Float?
-    let type: [String]
-    let stats: Stats
-}
-
-struct Stats: Codable{
-    let total: Int
-    let hp: Int
-    let attack: Int
-    let defense: Int
-    let spAtk: Int
-    let spDef: Int
-    let speed: Int
+    // MARK: - Aux functions
     
-    enum CodingKeys: String, CodingKey{
-        case total
-        case hp
-        case attack
-        case defense
-        case spAtk = "sp-atk"
-        case spDef = "sp-def"
-        case speed
+    private func getData(from url: String){
+        
+        let task = URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: {data, response, error in
+            
+            guard let data = data, error == nil else{
+                print("failedd to get data")
+                return
+            }
+            
+            var json: [Pokemon]?
+            do{
+                json = try JSONDecoder().decode([Pokemon].self, from: data)
+            }catch{
+                print("Failedd \(error.localizedDescription)")
+            }
+            
+            guard let dados = json else{
+                return
+            }
+            
+            self.pokemonsOriginal=dados
+            self.pokemons=dados
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        })
+        
+        task.resume()
+        
     }
     
 }

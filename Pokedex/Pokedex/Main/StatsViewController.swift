@@ -8,6 +8,9 @@
 import UIKit
 
 class StatsViewController: UIViewController {
+    
+    // MARK: - Outlets
+    
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var type: UILabel!
     @IBOutlet weak var total: UILabel!
@@ -18,9 +21,15 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var spDef: UILabel!
     @IBOutlet weak var speed: UILabel!
     
+    // MARK: - Properties
+    
     var pokemon : Pokemon?
+    
+    // MARK: - Life cycle functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         image.image = UIImage(named: pokemon?.name ?? "")
         type.text = "Type: \(pokemon?.type ?? [""])"
         total.text = "Total: \(pokemon?.stats.total ?? 0)"
@@ -31,16 +40,5 @@ class StatsViewController: UIViewController {
         spDef.text = "Sp-def: \(pokemon?.stats.spDef ?? 0)"
         speed.text = "Speed: \(pokemon?.stats.speed ?? 0)"
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
